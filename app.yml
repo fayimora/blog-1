@@ -1,0 +1,30 @@
+application: vkelonye
+version: 1
+runtime: python27
+api_version: 1
+threadsafe: true
+
+builtins:
+- remote_api: on
+
+libraries:
+- name: django
+  version: "1.2"
+
+skip_files:
+- ^(.*/)?app\.yaml
+- ^(.*/)?index\.yaml
+- ^(.*/)?.*\.py[co]
+- ^(.*/)?\..*
+- ^client/.*
+- ^components/.*
+- ^Makefile
+- ^component.json
+
+handlers:
+
+- url: /build
+  static_dir: build/
+
+- url: /.*
+  script: server.app

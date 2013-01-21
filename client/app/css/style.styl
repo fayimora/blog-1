@@ -1,0 +1,92 @@
+@import 'nib'
+
+textColor = #262626
+linkColor = textColor //lightskyblue
+
+body
+  color textColor
+  font-size 16px
+  padding-top 20px
+  padding-bottom 100px
+
+a
+  &,
+  &:hover
+    color linkColor
+
+[class*="icon-"]
+  color #ccc
+  cursor pointer
+  display inline-block
+
+.user-email
+  color #eee
+  float right
+
+.back
+  font-size 40px
+  margin-top 30px
+  a
+    &,
+    &:hover
+      text-decoration none
+
+#login
+  text-align center
+  margin-top 50px
+  position relative
+
+  div
+    margin 20px auto
+
+  h5
+    font-size 19px
+
+  .button
+    padding 0.55em 0.8em
+    font-size 20px
+
+.post
+
+  & > div
+    position relative
+
+  .actions
+    right 0
+    top 0
+    position absolute
+
+  .title
+
+    margin 30px 0 5px
+    font-size 40px
+
+    a
+      &,
+      &:hover
+        color #444
+
+  .date
+    margin 5px 0 20px
+    color #999
+
+  .content
+
+  .footer
+
+    a
+      &,
+      &:hover
+        color hotpink
+
+    .tags
+      display inline-block
+      ol
+        li
+         display inline-block
+         a
+          text-decoration underline
+    
+    .comments-label
+      display inline-block
+      float right

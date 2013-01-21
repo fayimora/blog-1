@@ -1,0 +1,41 @@
+{
+  "name": "app",
+  "dependencies": {
+    "kelonye/ember": "*",
+    "kelonye/ember-data": "*",
+    "kelonye/ember-validate": "*",
+    "kelonye/ember-list": "*",
+    "kelonye/ember-gae": "*",
+    "kelonye/ember-select": "*",
+    "kelonye/ember-dots": "*",
+    "kelonye/ember-ckedit": "*",
+    "kelonye/ui.css": "*",
+    "component/simple-grid": "*"
+  },
+  "scripts": [
+    "store.js",
+    "views.js",
+    "controllers.js",
+    "models.js",
+    "router.js",
+    "index.js"
+  ],
+  "styles": [
+    "css/style.css",
+    "css/icons.css"
+  ],
+  "images": [
+    "img/favicon.ico",
+    "img/logo.png"
+  ],
+  "files": [
+    "fonts/icomoon.eot",
+    "fonts/icomoon.svg",
+    "fonts/icomoon.ttf",
+    "fonts/icomoon.woff"
+  ],
+  "local": [
+    "blog",
+    "user"
+  ]
+}

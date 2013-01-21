@@ -1,0 +1,1 @@
+Em.ArrayController.reopen require 'ember-list'

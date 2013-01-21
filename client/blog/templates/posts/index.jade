@@ -1,0 +1,93 @@
+
+.col-2-12.empty
+
+
+.col-8-12
+
+
+  .col-1-2
+    | {{#if userController.content}}
+    | {{#linkTo "posts.new"}}
+    button.green New Post
+    | {{/linkTo}}
+    | {{/if}}
+
+    
+    | {{#if userController.content}}
+    a.button(href='/logout')
+      | Logout
+    | {{ else }}
+    a.button(href='/login')
+      | Login
+    | {{/if}}
+
+  .col-1-2
+    em.user-email {{userController.content.email}}
+
+  br
+  br
+
+  //| {{#if isLoaded}}
+
+  div
+
+    ol.posts
+
+      | {{#each controller}}
+
+      li.post
+
+        div
+
+          
+          .actions
+
+            | {{#if controller.userController.content}}
+
+            | {{#linkTo "post.edit" this}}
+            i.icon-pencil
+            | {{/linkTo}}
+
+            <a {{action removePost this}} href="javascript:">
+            i.icon-remove
+            </a>
+            
+            | {{/if}}
+
+          .title
+            | {{#linkTo "post.index" this}}
+            | {{title}}
+            | {{/linkTo}}
+
+          .date
+            | {{_date}}
+
+          .content
+            | {{{unbound content}}}
+
+
+          .footer
+
+            .tags
+              ol
+                li
+                  a(href="#") #design
+                li
+                  a(href="#") #graphics
+
+            .comments-label
+              a(href="#") 2 comments
+
+
+      | {{/each}}
+
+  
+
+  //
+    | {{else}}
+
+    | {{view App.LoaderView}}
+
+    | {{/if}}
+
+.col-2-12.empty

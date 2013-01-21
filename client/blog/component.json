@@ -1,0 +1,17 @@
+{
+  "name": "blog",
+  "dependencies": {
+  },
+  "scripts": [
+    "templates/index.js",
+    "templates/posts/index.js",
+    "templates/posts/new.js",
+    "templates/post/index.js",
+    "templates/post/edit.js",
+    "models.js",
+    "controllers.js",
+    "views.js",
+    "routes.js",
+    "index.js"
+  ]
+}

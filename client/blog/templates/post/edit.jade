@@ -1,0 +1,31 @@
+
+| {{#with content}}
+form.form-horiz
+  legend {{#if id }}Edit{{else}}New{{/if}} Post
+  fieldset
+
+    div
+      .col-2-12
+        | Title
+      .col-10-12
+        div
+          | {{view Em.TextField valueBinding="title" for="title"}}
+        .error
+          | {{_errors.title}}
+
+    div
+      .col-2-12
+        | Content
+      .col-10-12
+        div
+          | {{view App.EditorView valueBinding="content" for="content"}}
+        .error
+          | {{_errors.content}}
+
+    div
+      .col-2-12.empty
+      .col-10-12
+        <button {{action save this}} class="red" type="submit">Save</button>
+        <button {{action cancel this}}>Cancel</button>
+
+| {{/with}}

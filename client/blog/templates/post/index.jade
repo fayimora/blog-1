@@ -1,0 +1,74 @@
+
+| {{#with content}}
+
+.col-2-12
+  .back
+    | {{#linkTo "posts.index"}}↰{{/linkTo}}
+
+
+.col-8-12.post
+
+  div
+
+    
+    .actions
+
+      | {{#if controller.userController.content}}
+
+      | {{#linkTo "post.edit" this}}
+      button edit
+      | {{/linkTo}}
+
+      <a class="button dark" {{action removePost this}} href="javascript:">d</a>
+      
+      | {{/if}}
+
+    .title
+      | {{#linkTo "post.index" this}}
+      | {{title}}
+      | {{/linkTo}}
+
+    .date
+      | {{_date}}
+
+    .content
+      | {{{unbound content}}}
+
+
+    .footer
+
+      .tags
+        ol
+          li
+            a(href="#") #design
+          li
+            a(href="#") #graphics
+
+
+    .comments
+
+      | {{#if controller.user}}
+      
+      div
+        button add
+
+      div
+        | {{view App.EditorView isInline=true}}
+
+      | {{/if}}
+
+      | {{# each comments}}
+      div
+        | {{#if controller.user}}
+        .col-9-12.empty
+        .col-3-12
+          button edit
+          button delete
+        | {{/if}}
+      .comment
+        | {{content}}
+      | {{/each}}
+
+.col-2-12.empty
+
+| {{/with}}

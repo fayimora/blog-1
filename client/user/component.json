@@ -1,0 +1,9 @@
+{
+  "name": "user",
+  "dependencies": {},
+  "scripts": [
+    "models.js",
+    "controllers.js",
+    "index.js"
+  ]
+}
