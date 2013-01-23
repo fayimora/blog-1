@@ -16,6 +16,12 @@ prod: build
 	cat build/build.tmp.js > build/build.js
 	rm build/build.tmp.js
 
+deps:
+  @git clone https://github.com/kelonye/helpers.git
+	@npm install
+	@component install
+	@pip install -r requirements.txt
+
 %.css: %.styl
 	stylus -u nib $<
 
