@@ -6,7 +6,7 @@
 
 
   .col-1-2
-    | {{#if userController.content}}
+    | {{#if userController.content._is_admin}}
     | {{#linkTo "posts.new"}}
     button.green New Post
     | {{/linkTo}}
@@ -22,7 +22,8 @@
     | {{/if}}
 
   .col-1-2
-    em.user-email {{userController.content.email}}
+    br
+    em.user-email {{userController.content._email}}
 
   br
   br
@@ -42,7 +43,7 @@
           
           .actions
 
-            | {{#if controller.userController.content}}
+            | {{#if controller.userController.content._is_admin}}
 
             | {{#linkTo "post.edit" this}}
             i.icon-pencil

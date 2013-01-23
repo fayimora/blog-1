@@ -1,3 +1,4 @@
+| {{#if userController.content._is_admin}}
 
 | {{#with content}}
 form.form-horiz
@@ -25,7 +26,16 @@ form.form-horiz
     div
       .col-2-12.empty
       .col-10-12
-        <button {{action save this}} class="red" type="submit">Save</button>
-        <button {{action cancel this}}>Cancel</button>
+        <button {{action savePost this}} class="red" type="submit">Save</button>
+        <button {{action cancelPostEdit this}}>Cancel</button>
 
 | {{/with}}
+
+| {{else}}
+
+
+.back
+  | {{#linkTo "posts.index"}}↰ denied{{/linkTo}}
+
+
+| {{/if}}

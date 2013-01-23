@@ -2,23 +2,31 @@ get = Em.get
 set = Em.set
 
 App.Comment = DS.Model.extend
-  date: DS.attr 'date'
-  title: DS.attr 'string'
-  author: DS.belongsTo 'App.User'
+  content: DS.attr 'string'
+  #
+  #_date: DS.attr 'date'
+  #_author: DS.belongsTo 'App.User'
+  #
+  validations:
+    title: ['presence']
 
 App.Tag = DS.Model.extend
-  date: DS.attr 'date'
   name: DS.attr 'string'
+  #
+  #_date: DS.attr 'date'
+  #
+  validations:
+    name: ['presence']
 
 App.Post = DS.Model.extend
-  _date: DS.attr 'date'
   title: DS.attr 'string'
   content: DS.attr 'string'
-  ###
-  _author: DS.belongsTo 'App.User'  
+  #
+  #_date: DS.attr 'date'
+  #_author: DS.belongsTo 'App.User'  
   _comments: DS.hasMany 'App.Comment'
-  _tags: DS.hasMany 'App.Tags'
-  ###
+  #_tags: DS.hasMany 'App.Tags'
+  #
   validations:
     title: ['presence']
     content: ['presence']

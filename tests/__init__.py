@@ -25,12 +25,12 @@ class TestCase(TestCase):
             overwrite=True
         )
 
-        user = models.User(
-            name='TJ'
-        )
-        user.put()
+        # add user
+        self.app.get('/')
 
-        assert user.is_admin == True
+        user = models.get_current_user()
+
+        assert user._is_admin == True
 
         post = models.Post(
             title= 'An introduction to component(1)',
@@ -87,12 +87,12 @@ class TestCase(TestCase):
             overwrite=True
         )
 
-        user = models.User(
-            name='Guillermo'
-        )
-        user.put()
+        # add user
+        self.app.get('/')
 
-        assert user.is_admin == False
+        user = models.get_current_user()
+
+        assert user._is_admin == False
 
         comment = models.Post(
             post=post,

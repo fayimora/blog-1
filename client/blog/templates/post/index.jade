@@ -13,13 +13,15 @@
     
     .actions
 
-      | {{#if controller.userController.content}}
+      | {{#if controller.userController.content._is_admin}}
 
       | {{#linkTo "post.edit" this}}
-      button edit
+      i.icon-pencil
       | {{/linkTo}}
 
-      <a class="button dark" {{action removePost this}} href="javascript:">d</a>
+      <a {{action removePost this}} href="javascript:">
+      i.icon-remove
+      </a>
       
       | {{/if}}
 
@@ -47,23 +49,34 @@
 
     .comments
 
-      | {{#if controller.user}}
-      
-      div
-        button add
+      br
+      h3 Comments
+      br
+
+      | {{#if controller.userController.content}}
 
       div
-        | {{view App.EditorView isInline=true}}
+        | {{view App.EditorView class="edit" valueBinding="controller.comment.content"}}
+
+      .col-10-12.empty
+      .col-2-12
+        br
+        <button {{action saveComment this}} class="blue" type="submit">Comment</button>
 
       | {{/if}}
 
-      | {{# each comments}}
+      | {{#each _comments}}
       div
-        | {{#if controller.user}}
+        | {{#if controller.userController.content}}
         .col-9-12.empty
         .col-3-12
-          button edit
-          button delete
+          | {{#linkTo "post.edit" this}}
+          i.icon-pencil
+          | {{/linkTo}}
+
+          <a {{action removeComment this}} href="javascript:">
+          i.icon-remove
+          </a>
         | {{/if}}
       .comment
         | {{content}}

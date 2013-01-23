@@ -1,65 +1,3 @@
-###
-App.PostsRoutes = Em.Route.extend
-  
-  route: '/posts'
-
-  addPost: Em.Route.transitionTo 'posts.add'
-  editPost: Em.Route.transitionTo 'posts.edit'
-  deletePost: Em.Route.transitionTo 'posts.delete'
-
-  addComment: Em.Route.transitionTo 'post.comment.add'
-  editComment: Em.Route.transitionTo 'posts.comment.edit'
-  deleteComment: Em.Route.transitionTo 'posts.comment.delete'
-
-  cancelPost: (router, event) ->
-    post = event.context
-    post.transaction.rollback()
-    router.transitionTo 'index'
-
-  savePost: (router, event) ->
-    post = event.context
-    #post.validate()
-    if get post, '_isValid'
-      post.transaction.commit()
-      router.transitionTo 'index'
-
-  connectOutlets: (router, context)->
-
-  index: Em.Route.extend
-    route: '/'
-    connectOutlets: (router, context) ->
-      posts = App.store.find App.Post
-      ac = get router, 'applicationController'
-      ac.connectOutlet 'posts', posts
-
-  add: Em.Route.extend
-    route: '/new'
-    connectOutlets: (router, context) ->
-      
-      post = App.store.createRecord App.Post
-      ac = get router, 'applicationController'
-      ac.connectOutlet 'post', post
-
-    unroutePath: (router, path) ->
-      transaction = get router, 'postController.transaction'
-      transaction.rollback()
-      @_super router, path
-
-  edit: Em.Route.extend
-
-    route: '/:post_id'
-    connectOutlets: (router, post) ->
-      ac = get router, 'applicationController'
-      ac.connectOutlet 'post', post
-
-    unroutePath: (router, path) ->
-      transaction = get router, 'postController.transaction'
-      transaction.rollback()
-      @_super router, path
-
-###
-
-
 get = Em.get
 set = Em.set
 
@@ -67,12 +5,11 @@ App.PostsRoute = Em.Route.extend
 
   events:
 
-    cancel: (post) ->
-      console.log post
+    cancelPostEdit: (post) ->
       post.transaction.rollback()
       @transitionTo 'posts.index'
 
-    save: (post) ->
+    savePost: (post) ->
       post.validate()
       if get post, '_isValid'
         post.transaction.commit()
@@ -86,7 +23,7 @@ App.PostsRoute = Em.Route.extend
 
 
 App.PostsIndexRoute = Em.Route.extend
-
+  
   model: ->
     App.Post.find()
 
@@ -99,7 +36,7 @@ App.PostsIndexRoute = Em.Route.extend
       controller: 'posts'
 
 App.PostsNewRoute = Em.Route.extend
-  
+
   model: ->
     App.Post.createRecord()
 
@@ -111,41 +48,39 @@ App.PostsNewRoute = Em.Route.extend
     @render 'posts.new',
       controller: 'post'
 
-App.PostsPostRoute = Em.Route.extend
-  
-  renderTemplate: ->
-    console.log @
-
-###
-  model: (id)->
-    App.Post.find id
-
-  setupController: (controller, model)->
-    controller = @controllerFor 'filters'
-    set controller, 'selected', model.slug
-
-  renderTemplate: ->
-    @render 'todos.list',
-      controller: 'todos'
-  
-  serialize: (model, params)->
-    slug: model.slug
-
-  deserialize: (params)->
-    params
-###
+App.PostsPostRoute = Em.Route.extend()
 
 App.PostIndexRoute = Em.Route.extend
 
+  events:
+
+    newComment: (post)->
+
+      comment = App.Comment.createRecord()
+      controller = @controllerFor 'post'
+      set controller, 'comment', comment
+
+    saveComment: (post)->
+
+      controller = @controllerFor 'post'
+      comment = get controller, 'comment'
+      #comment.validate()
+      #if get comment, '_isValid'
+      set comment, 'post', post
+      comment.transaction.commit()
+      @send 'newComment'
+
+  setupController: (controller, model)->
+    @_super()
+    @send 'newComment'
+  
   renderTemplate: ->
-    console.log @
     @render 'post.index',
       controller: 'post'
 
 App.PostEditRoute = Em.Route.extend
 
   renderTemplate: ->
-    console.log @
     @render 'post.edit',
       controller: 'post'
 

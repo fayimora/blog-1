@@ -22,7 +22,8 @@ class IndexView(utils.View):
             user = models.get_current_user()
             if not user:
                 user = models.User()
-                user.put()
+            user._is_admin = users.is_current_user_admin()
+            user.put()
         return self.render('index', { 'user': user })
 
 app = webapp.WSGIApplication(

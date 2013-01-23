@@ -41,6 +41,21 @@ class TestCase(tests.TestCase):
         posts = self.model.all()
         self.assertFindAll(posts)
 
+    def test_find_many(self):
+        
+        posts = self.model.all()
+        keys = [unicode(post.key()) for post in posts]
+        keys_str = ''
+        for key in keys:
+            keys_str+='%s,' % key
+        keys_str = keys_str[:-1]
+        #logging.warning(keys_str)
+        url = '/rest/post?fin_key=%s' % keys_str
+        res = self.app.get(url)
+        assert res.status_int == 200
+        #logging.warning(res.json)
+        self.assertDataCount(res, self.model.all())
+
     def test_find_query(self):
 
         post = models.Post.all()[0]
