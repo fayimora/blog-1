@@ -3,15 +3,19 @@
 
 Download the latest Google App Engine Python [SDK](https://developers.google.com/appengine/downloads) and untar it.
 
-Then run,
+Install components, node and python modules.
+
 ```
 make deps
+```
+
+Build client
+
+```
 make
 ```
 
-## Server
-
-Start server with,
+## Running the app
 
 ```
 /path/to/sdk/dev_appserver.py .
