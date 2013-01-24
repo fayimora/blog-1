@@ -30,7 +30,7 @@ class TestCase(TestCase):
 
         user = models.get_current_user()
 
-        assert user._is_admin == True
+        assert user.is_admin == True
 
         post = models.Post(
             title= 'An introduction to component(1)',
@@ -92,7 +92,7 @@ class TestCase(TestCase):
 
         user = models.get_current_user()
 
-        assert user._is_admin == False
+        assert user.is_admin == False
 
         comment = models.Post(
             post=post,

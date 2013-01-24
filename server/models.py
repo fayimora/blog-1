@@ -5,7 +5,7 @@ from google.appengine.api import users
 
 class Model(db.Model):
 
-    _date = db.DateTimeProperty(auto_now=True)
+    date = db.DateTimeProperty(auto_now=True)
 
     @property
     def readable(self):
@@ -18,34 +18,34 @@ class Model(db.Model):
 class User(Model):
     
     name = db.StringProperty()
-
-    _is_admin = db.BooleanProperty(default=False)
-    _email = db.UserProperty(auto_current_user_add=True)
+    is_admin = db.BooleanProperty(default=False)
+    email = db.UserProperty(auto_current_user_add=True)
 
 
 def get_current_user():
     user = users.get_current_user()
-    return User.gql('WHERE _email = :1', user).get()
+    return User.gql('WHERE email = :1', user).get()
 
 class Model(Model):
-    _author = db.UserProperty(auto_current_user=True)
+    author = db.UserProperty(auto_current_user=True)
 
 class Post(Model):
     title = db.StringProperty()
     content = db.TextProperty()
-    _comments = db.ListProperty(str)
+    comments = db.ListProperty(str)
+    tags = db.ListProperty(str)
 
     @property
-    def comments(self):
+    def _comments_(self):
         return Comment.gql('WHERE post = :1', self)
 
     @property
-    def tags(self):
+    def _tags_(self):
         return Tag.gql('WHERE post = :1', self)
 
     def rm(self):
-        db.delete(self.comments)
-        db.delete(self.tags)
+        db.delete(self._comments_)
+        db.delete(self._tags_)
 
     @property
     def comments_keys(self):
@@ -57,13 +57,22 @@ class Comment(Model):
 
     def put(self, *args, **kwargs):
         super(Comment, self).put(*args, **kwargs)
-        key = unicode(self.key())
-        self.post._comments.append(key)
+        key = str(self.key())
+
+        # add key from post's comments
+        if key not in self.post.comments:
+            self.post.comments.append(key)
         self.post.put()
 
     def rm(self):
-        key = unicode(self.key())
-        self.post.remove(key)
+        key = str(self.key())
+        logging.warning(self.post.comments)
+        logging.warning('\n')
+        logging.warning(key)
+        # remove key from post's comments
+        self.post.comments.remove(key)
+        self.post.put()
+        db.delete(self) #?
 
 class Tag(Model):
     post = db.ReferenceProperty(Post)

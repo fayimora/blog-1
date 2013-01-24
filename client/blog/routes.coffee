@@ -10,6 +10,11 @@ App.PostsRoute = Em.Route.extend
       @transitionTo 'posts.index'
 
     savePost: (post) ->
+
+      controller = @controllerFor 'post'
+      author = get controller, 'userController.content'
+
+      set post, 'author', author
       post.validate()
       if get post, '_isValid'
         post.transaction.commit()
@@ -54,24 +59,49 @@ App.PostIndexRoute = Em.Route.extend
 
   events:
 
-    newComment: (post)->
-
-      comment = App.Comment.createRecord()
-      controller = @controllerFor 'post'
-      set controller, 'comment', comment
-
-    saveComment: (post)->
+    newComment: ->
 
       controller = @controllerFor 'post'
-      comment = get controller, 'comment'
+      set controller, 'comment', ''
+
+    createComment: (post)->
+
+      controller = @controllerFor 'post'
+      content = get controller, 'comment'
+
+      author = get controller, 'userController.content'
+
+      comment = App.Comment.createRecord
+        content: content
+        post: post
+        author: author
       #comment.validate()
       #if get comment, '_isValid'
-      set comment, 'post', post
       comment.transaction.commit()
+
       @send 'newComment'
 
+    updateComment: (comment) ->
+      #comment.validate()
+      #if get comment, '_isValid'
+      comment.transaction.commit()
+      set comment, 'editing', false
+
+    cancelCommentUpdate: (comment) ->
+      comment.transaction.rollback()
+      set comment, 'editing', false
+
+    editComment: (comment)->
+      set comment, 'editing', true
+      
+    removeComment: (comment)->
+      console.log comment
+      store = get comment, 'store'
+      store.deleteRecord comment
+      store.commit()
+
   setupController: (controller, model)->
-    @_super()
+    @_super controller, model
     @send 'newComment'
   
   renderTemplate: ->

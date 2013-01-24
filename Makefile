@@ -17,10 +17,10 @@ prod: build
 	rm build/build.tmp.js
 
 deps:
-  @git clone https://github.com/kelonye/helpers.git
-	@npm install
-	@component install
-	@pip install -r requirements.txt
+	npm install
+	component install
+	pip install -r requirements.txt
+	git clone https://github.com/kelonye/helpers.git
 
 %.css: %.styl
 	stylus -u nib $<
@@ -37,4 +37,4 @@ deps:
 clean:
 	rm -rf $(JS) $(CSS) $(HTML) $(TEMPLATES) build
 
-.PHONY: clean prod
+.PHONY: clean prod deps

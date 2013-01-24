@@ -1,4 +1,4 @@
-| {{#if userController.content._is_admin}}
+| {{#if userController.content.is_admin}}
 
 | {{#with content}}
 form.form-horiz
@@ -24,9 +24,12 @@ form.form-horiz
           | {{_errors.content}}
 
     div
+      | {{view App.TagsView id="tags"}}
+
+    div
       .col-2-12.empty
       .col-10-12
-        <button {{action savePost this}} class="red" type="submit">Save</button>
+        <button {{action savePost this}} class="red">Save</button>
         <button {{action cancelPostEdit this}}>Cancel</button>
 
 | {{/with}}

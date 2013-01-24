@@ -1,6 +1,7 @@
 {
   "name": "blog",
   "dependencies": {
+    "component/pillbox": "*"
   },
   "scripts": [
     "templates/index.js",

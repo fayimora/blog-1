@@ -52,16 +52,28 @@ a
   & > div
     position relative
 
+  .edit
+    border 1px solid #eee
+    min-height 60px
+
+
+  .actions,
+  .title,
+  .date,
+  .content,
+  .footer,
+  .comments
+    margin-top 20px
+    margin-bottom 20px
+
   .actions
     right -50px
     top 0
     position absolute
 
   .title
-
     margin 30px 0 5px
     font-size 40px
-
     a
       &,
       &:hover
@@ -74,7 +86,6 @@ a
   .content
 
   .footer
-
     a
       &,
       &:hover
@@ -92,6 +103,21 @@ a
       display inline-block
       float right
 
-.edit
-  border 1px solid #eee
-  min-height 60px
+
+  .comments
+    
+    .head
+      margin-bottom 100px
+
+    .comment
+      margin 2px
+      display block
+      overflow auto
+
+      i
+        font-size 5px
+
+      .editing
+        border-top 1px solid #eee
+        padding-top 20px
+        padding-bottom 30px

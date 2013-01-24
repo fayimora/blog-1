@@ -13,7 +13,7 @@
     
     .actions
 
-      | {{#if controller.userController.content._is_admin}}
+      | {{#if controller.userController.content.is_admin}}
 
       | {{#linkTo "post.edit" this}}
       i.icon-pencil
@@ -31,7 +31,7 @@
       | {{/linkTo}}
 
     .date
-      | {{_date}}
+      | {{date}}
 
     .content
       | {{{unbound content}}}
@@ -49,38 +49,70 @@
 
     .comments
 
-      br
-      h3 Comments
-      br
+      div
 
+        br
+        h3 Comments
+        br
+
+      // create comment
       | {{#if controller.userController.content}}
 
-      div
-        | {{view App.EditorView class="edit" valueBinding="controller.comment.content"}}
+      .head
+        div
+          | {{view App.EditorView class="edit" valueBinding="controller.comment"}}
 
-      .col-10-12.empty
-      .col-2-12
-        br
-        <button {{action saveComment this}} class="blue" type="submit">Comment</button>
+        div
+          .col-10-12.empty
+          .col-2-12
+            br
+            <button {{action createComment this}} class="blue" type="submit">Comment</button>
 
       | {{/if}}
 
-      | {{#each _comments}}
-      div
-        | {{#if controller.userController.content}}
-        .col-9-12.empty
-        .col-3-12
-          | {{#linkTo "post.edit" this}}
-          i.icon-pencil
-          | {{/linkTo}}
 
-          <a {{action removeComment this}} href="javascript:">
-          i.icon-remove
-          </a>
-        | {{/if}}
-      .comment
-        | {{content}}
-      | {{/each}}
+      // comments
+      ul
+
+        | {{#each comments}}
+
+        li.comment
+
+          | {{#unless editing}}
+
+          .editing
+            .col-11-12
+              | {{{content}}}
+            .col-1-12
+              <a {{action editComment this}} href="javascript:">
+              i.icon-pencil
+              </a>
+
+              <a {{action removeComment this}} href="javascript:">
+              i.icon-remove
+              </a>
+
+
+          | {{else}}
+          
+          .showing
+            | {{#if controller.userController.content}}
+            div
+              | {{view App.EditorView class="edit" valueBinding="content"}}
+
+            div
+              .col-8-12.empty
+              .col-4-12
+                br
+                <button {{action updateComment this}} class="blue" type="submit">Update</button>
+                <button {{action cancelCommentUpdate this}}>Cancel</button>
+            | {{/if}}
+
+          | {{/unless}}
+
+
+
+        | {{/each}}
 
 .col-2-12.empty
 

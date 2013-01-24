@@ -6,7 +6,7 @@
 
 
   .col-1-2
-    | {{#if userController.content._is_admin}}
+    | {{#if userController.content.is_admin}}
     | {{#linkTo "posts.new"}}
     button.green New Post
     | {{/linkTo}}
@@ -23,7 +23,7 @@
 
   .col-1-2
     br
-    em.user-email {{userController.content._email}}
+    em.user-email {{userController.content.email}}
 
   br
   br
@@ -43,7 +43,7 @@
           
           .actions
 
-            | {{#if controller.userController.content._is_admin}}
+            | {{#if controller.userController.content.is_admin}}
 
             | {{#linkTo "post.edit" this}}
             i.icon-pencil
@@ -61,7 +61,7 @@
             | {{/linkTo}}
 
           .date
-            | {{_date}}
+            | {{date}}
 
           .content
             | {{{unbound content}}}
@@ -77,8 +77,9 @@
                   a(href="#") #graphics
 
             .comments-label
-              a(href="#") 2 comments
-
+              | {{#linkTo "post.index" this}}
+              | comments - {{comments.length}}
+              | {{/linkTo}}
 
       | {{/each}}
 
