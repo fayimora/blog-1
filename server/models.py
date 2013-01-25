@@ -15,8 +15,8 @@ class Model(db.Model):
     def writable(self):
         return users.is_current_user_admin()
 
+
 class User(Model):
-    
     name = db.StringProperty()
     is_admin = db.BooleanProperty(default=False)
     email = db.UserProperty(auto_current_user_add=True)
@@ -26,8 +26,17 @@ def get_current_user():
     user = users.get_current_user()
     return User.gql('WHERE email = :1', user).get()
 
+
 class Model(Model):
-    author = db.UserProperty(auto_current_user=True)
+    #author = db.UserProperty(auto_current_user=True)
+    author = db.StringProperty()
+
+    def put(self, *args, **kwargs):
+        super(Model, self).put(*args, **kwargs)
+        if not self.author:
+            user = get_current_user()
+            self.author = str(user.key())
+            self.put()
 
 class Post(Model):
     title = db.StringProperty()
@@ -47,9 +56,6 @@ class Post(Model):
         db.delete(self._comments_)
         db.delete(self._tags_)
 
-    @property
-    def comments_keys(self):
-        return [str(c.key()) for c in self.comments]
 
 class Comment(Model):
     post = db.ReferenceProperty(Post)
@@ -59,16 +65,16 @@ class Comment(Model):
         super(Comment, self).put(*args, **kwargs)
         key = str(self.key())
 
-        # add key from post's comments
+        # add key to post's comments
         if key not in self.post.comments:
             self.post.comments.append(key)
-        self.post.put()
+            self.post.put()
 
     def rm(self):
         key = str(self.key())
-        logging.warning(self.post.comments)
-        logging.warning('\n')
-        logging.warning(key)
+        # logging.warning(self.post.comments)
+        # logging.warning('\n')
+        # logging.warning(key)
         # remove key from post's comments
         self.post.comments.remove(key)
         self.post.put()
@@ -77,3 +83,22 @@ class Comment(Model):
 class Tag(Model):
     post = db.ReferenceProperty(Post)
     name = db.StringProperty()
+
+    def put(self, *args, **kwargs):
+        super(Tag, self).put(*args, **kwargs)
+        key = str(self.key())
+
+        # add key to post's tags
+        if key not in self.post.tags:
+            self.post.tags.append(key)
+            self.post.put()
+
+    def rm(self):
+        key = str(self.key())
+        logging.warning(self.post.tags)
+        logging.warning('\n')
+        logging.warning(key)
+        # remove key from post's tags
+        self.post.tags.remove(key)
+        self.post.put()
+        db.delete(self) #?

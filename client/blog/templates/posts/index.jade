@@ -71,10 +71,10 @@
 
             .tags
               ol
+                | {{#each tags}}
                 li
-                  a(href="#") #design
-                li
-                  a(href="#") #graphics
+                  a(href="#") #\{{name}}
+                | {{/each}}
 
             .comments-label
               | {{#linkTo "post.index" this}}

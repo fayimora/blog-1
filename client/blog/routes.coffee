@@ -11,20 +11,78 @@ App.PostsRoute = Em.Route.extend
 
     savePost: (post) ->
 
+      that = @
+      store = get post, 'store'
       controller = @controllerFor 'post'
       author = get controller, 'userController.content'
 
-      set post, 'author', author
       post.validate()
       if get post, '_isValid'
-        post.transaction.commit()
-        @transitionTo 'posts.index'
+
+        set post, 'author', author
+        store.commit()
+
+        # func to be called when creating/updating post
+        saveTags = ->
+          input = get controller, 'tagsInput'
+          tags = get post, 'tags'
+          names = input.values()
+
+          tagsNames = tags.map (tag)->
+            get tag, 'name'
+
+          # console.log tagsNames
+          # console.log names
+
+          names = names.removeObjects tagsNames
+          #console.log names
+          names.forEach (name)->
+            tag = App.Tag.createRecord
+              name: name
+              post: post
+              author: author
+          store.commit()
+
+        # save tags
+        if get post, 'id'
+          # sync
+          saveTags()
+
+        else
+          # async
+          post.addObserver 'id', ->
+            id = get post, 'id'
+            if id
+              post.removeObserver 'id'
+              saveTags()
+
+        that.transitionTo 'posts.index'
 
     removePost: (post)->
-      store = get post, 'store'
-      store.deleteRecord post
+
+      controller = @controllerFor 'posts'
+      store = get controller, 'store'
+      console.log store
+
+      # remove comments
+      comments = get post, 'comments'
+      console.log get comments, 'length'
+      comments.forEach (comment)->
+        console.log comment
+        comment.deleteRecord()
+
+      # remove tags
+      tags = get post, 'tags'
+      console.log get tags, 'length'
+      tags.forEach (tag)->
+        console.log tag
+        tag.deleteRecord()
+
+      #remove post
+      post.deleteRecord()
+      #
       store.commit()
-      @transitionTo 'posts.index'
+      #@transitionTo 'posts.index'
 
 
 App.PostsIndexRoute = Em.Route.extend

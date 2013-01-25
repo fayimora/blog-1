@@ -1,11 +1,11 @@
 | {{#if userController.content.is_admin}}
 
 | {{#with content}}
-form.form-horiz
+form.form-horiz.post
   legend {{#if id }}Edit{{else}}New{{/if}} Post
   fieldset
 
-    div
+    .control-group
       .col-2-12
         | Title
       .col-10-12
@@ -14,19 +14,25 @@ form.form-horiz
         .error
           | {{_errors.title}}
 
-    div
+    .control-group.content
       .col-2-12
         | Content
       .col-10-12
         div
-          | {{view App.EditorView valueBinding="content" for="content"}}
+          | {{view App.EditorView valueBinding="content" for="content" class="editor"}}
         .error
           | {{_errors.content}}
 
-    div
-      | {{view App.TagsView id="tags"}}
+    .control-group
+      .col-2-12
+        | Tags
+      .col-10-12
+        div
+          | {{view App.TagsView id="tags"}}
+        .help
+          | Hit `Enter` when adding tags
 
-    div
+    .control-group
       .col-2-12.empty
       .col-10-12
         <button {{action savePost this}} class="red">Save</button>
