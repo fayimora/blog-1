@@ -2,7 +2,7 @@
   "name": "blog",
   "version": "0.0.1",
   "license": "MIT",
-  "dependencies": {
+  "devDependencies": {
     "jade": "*",
     "coffee-script": "*",
     "component": "*",

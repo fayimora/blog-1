@@ -11,10 +11,16 @@ CSS  = $(STYL:.styl=.css)
 build: $(JS) $(CSS) $(HTML) $(TEMPLATES)
 	@component build --dev
 
-prod: build
-	uglifyjs --no-mangle build/build.js > build/build.tmp.js
-	cat build/build.tmp.js > build/build.js
-	rm build/build.tmp.js
+production: build
+	@for sym in $(shell find $< -lname "*"); do\
+		orig=`readlink $$sym`;\
+		echo $$sym;\
+		rm $$sym;\
+		cp $$orig $$sym;\
+	done
+#	uglifyjs --no-mangle build/build.js > build/build.tmp.js
+#	cat build/build.tmp.js > build/build.js
+#	rm build/build.tmp.js
 
 deps:
 	npm install
@@ -37,4 +43,4 @@ deps:
 clean:
 	rm -rf $(JS) $(CSS) $(HTML) $(TEMPLATES) build
 
-.PHONY: clean prod deps
+.PHONY: clean production deps

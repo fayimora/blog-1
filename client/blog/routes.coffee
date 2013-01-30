@@ -117,11 +117,6 @@ App.PostIndexRoute = Em.Route.extend
 
   events:
 
-    newComment: ->
-
-      controller = @controllerFor 'post'
-      set controller, 'comment', ''
-
     createComment: (post)->
 
       controller = @controllerFor 'post'
@@ -137,7 +132,7 @@ App.PostIndexRoute = Em.Route.extend
       #if get comment, '_isValid'
       comment.transaction.commit()
 
-      @send 'newComment'
+      @transitionTo 'post.index'
 
     updateComment: (comment) ->
       #comment.validate()
@@ -160,8 +155,9 @@ App.PostIndexRoute = Em.Route.extend
 
   setupController: (controller, model)->
     @_super controller, model
-    @send 'newComment'
-  
+    controller = @controllerFor 'post'
+    set controller, 'comment', ''
+
   renderTemplate: ->
     @render 'post.index',
       controller: 'post'

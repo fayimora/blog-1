@@ -46,7 +46,7 @@
             a(href="#") #\{{name}}
           | {{/each}}
 
-
+    | {{debugger controller}}
     .comments
 
       div
@@ -60,6 +60,7 @@
 
       .head
         div
+          | {{controller.comment}}
           | {{view App.EditorView class="edit" valueBinding="controller.comment"}}
 
         div
@@ -105,7 +106,7 @@
               .col-4-12
                 br
                 <button {{action updateComment this}} class="blue" type="submit">Update</button>
-                <button {{action cancelCommentUpdate this}}>Cancel</button>
+                <button {{action cancelCommentUpdate this}} class="white">Cancel</button>
             | {{/if}}
 
           | {{/unless}}
