@@ -3,11 +3,5 @@
   "version": "0.0.1",
   "license": "MIT",
   "devDependencies": {
-    "jade": "*",
-    "coffee-script": "*",
-    "component": "*",
-    "stylus": "*",
-    "nib": "*",
-    "uglify-js": "~2.2.2"
   }
 }

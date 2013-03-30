@@ -1,24 +1,14 @@
 
 ## Setup
 
-Download the latest Google App Engine Python [SDK](https://developers.google.com/appengine/downloads) and untar it.
+Create a new app at [github](https://github.com/settings/applications/new)
 
-Install components, node and python modules.
+Add the given ID and SECRET as environment variables GITHUB_ID and GITHUB_SECRET
 
-```
-make deps
-```
-
-Build client
+Run app
 
 ```
 make
 ```
 
-## Running the app
-
-```
-/path/to/sdk/dev_appserver.py .
-```
-
-Then, visit [http://localhost:8080](http://localhost:8080)
+Then, visit [http://localhost:3000](http://localhost:3000)
