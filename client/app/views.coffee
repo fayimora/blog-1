@@ -1,6 +1,4 @@
-#App.LoaderView = require 'ember-dots'
-
-App.LoaderView = Em.View.extend()
+App.LoaderView = Em.View.extend() # require 'ember-dots'
 
 App.EditorView = Em.View.extend require('ember-ckedit')
   ,isInline: true

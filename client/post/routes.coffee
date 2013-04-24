@@ -111,8 +111,6 @@ App.PostsNewRoute = Em.Route.extend
     @render 'posts.new',
       controller: 'post'
 
-App.PostsPostRoute = Em.Route.extend()
-
 App.PostIndexRoute = Em.Route.extend
 
   events:

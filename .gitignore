@@ -1,14 +1,6 @@
 syntax: glob
 
-*.pyo
-*.pyc
-*.html
-*.css
-*.js
-
-.npm-debug.log
-
-helpers
-node_modules
-components
-build
+*.npm-debug.log
+build/
+components/
+node_modules/

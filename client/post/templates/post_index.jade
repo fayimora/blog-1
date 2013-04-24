@@ -13,7 +13,7 @@
     
     .actions
 
-      | {{#if controller.userController.content.is_admin}}
+      | {{#if controller.user.is_admin}}
 
       | {{#linkTo "post.edit" this}}
       i.icon-pencil
@@ -56,7 +56,7 @@
         br
 
       // create comment
-      | {{#if controller.userController.content}}
+      | {{#if controller.user}}
 
       .head
         div
@@ -97,7 +97,7 @@
           | {{else}}
           
           .showing
-            | {{#if controller.userController.content}}
+            | {{#if controller.user}}
             div
               | {{view App.EditorView class="edit" valueBinding="content"}}
 

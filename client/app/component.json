@@ -2,27 +2,34 @@
   "name": "app",
   "dependencies": {
     "kelonye/ember": "*",
-    "kelonye/ember-data": "*",
-    "kelonye/ember-validate": "*",
-    "kelonye/ember-list": "*",
-    "kelonye/ember-gae": "*",
-    "kelonye/ember-select": "*",
+    "kelonye/style": "*",
+    "kelonye/ember-user": "*",
     "kelonye/ember-dots": "*",
+    "kelonye/ember-data": "*",
+    "kelonye/ember-nosql": "*",
     "kelonye/ember-ckedit": "*",
-    "kelonye/ui.css": "*",
-    "component/simple-grid": "*"
+    "kelonye/ember-select": "*",
+    "component/simple-grid": "*",
+    "kelonye/ember-validate": "*",
+    "kelonye/ember-error-support": "*"
   },
-  "scripts": [
-    "store.js",
-    "views.js",
-    "controllers.js",
-    "models.js",
-    "router.js",
-    "index.js"
+  "jade": [
+    "templates/application"
+  ],
+  "coffee": [
+    "store",
+    "views",
+    "templates",
+    "controllers",
+    "models",
+    "router",
+    "index"
+  ],
+  "styl": [
+    "css/style"
   ],
   "styles": [
-    "css/style.css",
-    "css/icons.css"
+    "css/fonts"
   ],
   "images": [
     "img/favicon.ico",
@@ -35,7 +42,7 @@
     "fonts/icomoon.woff"
   ],
   "local": [
-    "blog",
+    "post",
     "user"
   ]
 }

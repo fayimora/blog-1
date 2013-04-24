@@ -1,7 +1,12 @@
 {
   "name": "blog",
   "version": "0.0.1",
-  "license": "MIT",
-  "devDependencies": {
+  "dependencies": {
+    "express": "*",
+    "passport": "*",
+    "connect-redis": "*",
+    "passport-github": "*",
+    "node_rc": "git+https://github.com/kelonye/node_rc.git",
+    "node_hooks": "git+https://github.com/kelonye/node_hooks.git"
   }
 }

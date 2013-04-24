@@ -1,6 +1,10 @@
 {
   "name": "blog",
   "version": "0.0.1",
-  "local": ["app"],
-  "paths": ["client"]
+  "local": [
+    "app"
+  ],
+  "paths": [
+    "client"
+  ]
 }

@@ -1,10 +1,5 @@
 App.Router.map ->
-
-  @resource 'posts'
-  , path: '/'
-  , ->
+  @resource 'posts', path: '/', ->
     @route 'new'
-    @resource 'post'
-    , path: ':post_id'
-    , ->
+    @resource 'post', path: ':post_id', ->
       @route 'edit'

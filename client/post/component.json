@@ -1,0 +1,21 @@
+{
+  "name": "post",
+  "dependencies": {
+    "component/pillbox": "*"
+  },
+  "js": [
+    "templates",
+    "models",
+    "controllers",
+    "views",
+    "routes",
+    "index"
+  ],
+  "jade": [
+    "templates/posts",
+    "templates/posts_index",
+    "templates/post",
+    "templates/post_index",
+    "templates/post_form"
+  ]
+}
