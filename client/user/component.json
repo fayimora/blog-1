@@ -1,8 +1,0 @@
-{
-  "name": "user",
-  "dependencies": {},
-  "scripts": [
-    "models.js",
-    "index.js"
-  ]
-}

@@ -2,11 +2,13 @@
   "name": "blog",
   "version": "0.0.1",
   "dependencies": {
+    "redis": "*",
     "express": "*",
+    "mongoose": "*",
     "passport": "*",
     "connect-redis": "*",
-    "passport-github": "*",
-    "node_rc": "git+https://github.com/kelonye/node_rc.git",
-    "node_hooks": "git+https://github.com/kelonye/node_hooks.git"
+    "passport-dropbox": "*",
+    "node_hooks": "git+https://github.com/kelonye/node_hooks.git",
+    "ember-mongoose": "git+https://github.com/kelonye/ember-mongoose.git"
   }
 }

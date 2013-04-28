@@ -3,37 +3,32 @@
   "dependencies": {
     "kelonye/ember": "*",
     "kelonye/style": "*",
-    "kelonye/ember-user": "*",
     "kelonye/ember-dots": "*",
     "kelonye/ember-data": "*",
-    "kelonye/ember-nosql": "*",
+    "kelonye/ember-user": "*",
     "kelonye/ember-ckedit": "*",
-    "kelonye/ember-select": "*",
     "component/simple-grid": "*",
     "kelonye/ember-validate": "*",
+    "kelonye/ember-mongoose": "*",
     "kelonye/ember-error-support": "*"
   },
-  "jade": [
-    "templates/application"
-  ],
   "coffee": [
-    "store",
+    "index",
     "views",
-    "templates",
-    "controllers",
-    "models",
+    "store",
     "router",
-    "index"
+    "models",
+    "templates"
   ],
   "styl": [
     "css/style"
   ],
   "styles": [
-    "css/fonts"
+    "css/fonts.css"
   ],
   "images": [
-    "img/favicon.ico",
-    "img/logo.png"
+    "img/logo.png",
+    "img/favicon.ico"
   ],
   "files": [
     "fonts/icomoon.eot",
@@ -42,7 +37,10 @@
     "fonts/icomoon.woff"
   ],
   "local": [
-    "post",
-    "user"
-  ]
+    "posts",
+    "users",
+    "tags",
+    "comments"
+  ],
+  "scripts": []
 }

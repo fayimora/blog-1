@@ -1,6 +1,6 @@
-| {{#if user.is_admin}}
+| {{#if controller.user.isSuperUser}}
 
-| {{#with content}}
+| {{#with controllers.post.content }}
 form.form-horiz.post
   legend {{#if id }}Edit{{else}}New{{/if}} Post
   fieldset

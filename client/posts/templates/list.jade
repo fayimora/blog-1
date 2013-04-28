@@ -6,14 +6,14 @@
 
 
   .col-1-2
-    | {{#if user.is_admin}}
+    | {{#if user.isSuperUser}}
     | {{#linkTo "posts.new"}}
     button.green New Post
     | {{/linkTo}}
     | {{/if}}
 
     
-    | {{#if user}}
+    | {{#if user.id }}
     a.button.white(href='/logout')
       | Logout
     | {{ else }}
@@ -23,30 +23,27 @@
 
   .col-1-2
     br
-    em.user-email {{user.email}}
+    em.user-email {{user.name}}
 
   br
   br
-
-  //| {{#if isLoaded}}
 
   div
 
     ol.posts
 
-      | {{#each controller}}
+      | {{#each controllers.posts}}
 
       li.post
 
         div
-
           
           .actions
 
-            | {{#if user.is_admin}}
+            | {{#if controller.user.isSuperUser}}
 
             | {{#linkTo "post.edit" this}}
-            i.icon-pencil
+            i.icon-edit
             | {{/linkTo}}
 
             <a {{action removePost this}} href="javascript:">
@@ -86,6 +83,8 @@
   
 
   //
+    | {{#if isLoaded}}
+
     | {{else}}
 
     | {{view App.LoaderView}}

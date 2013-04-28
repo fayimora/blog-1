@@ -1,0 +1,12 @@
+{
+  "name": "tags",
+  "dependencies": {
+    "component/pillbox": "*"
+  },
+  "coffee": [
+    "index",
+    "views",
+    "models"
+  ],
+  "scripts": []
+}

@@ -1,34 +1,27 @@
-get = Em.get
-set = Em.set
-
 App.TagsView = Em.TextField.extend
   
   didInsertElement: ->
     @_super()
 
-    controller = get @, 'controller'
-    controller = controller.controllerFor 'post'
-    post = get controller , 'content'
-    author = get controller, 'userController.content'
+    post = @get 'controller.controllers.post.content' #/edit
+    post ?= @get 'controller.controllers.posts.content' #/new
 
     Pillbox = require 'pillbox'
     input = Pillbox document.getElementById 'tags'
     
     # populate input with tags
-    tags = get post, 'tags'
+    tags = post.get 'tags'
 
     addTags = ->
-      #console.log get tags, 'isLoaded'
-      #console.log get tags, 'length'
       tags.forEach (tag)->
-        name = get tag, 'name'
+        name = tag.get 'name'
         input.add name
 
-    if get tags, 'isLoaded'
+    if tags.get 'isLoaded'
       addTags()
 
     tags.addObserver 'isLoaded', ->
-      if get tags, 'isLoaded'
+      if tags.get 'isLoaded'
         tags.removeObserver 'isLoaded'
         addTags()
 
@@ -37,9 +30,9 @@ App.TagsView = Em.TextField.extend
       #console.log "removing #{tag}"
       name = tag
       tag = tags.filterProperty 'name', name
-      if get tag, 'id'
-        store = get tag, 'store'
+      if tag.get 'id'
+        store = tag.get 'store'
         store.deleteRecord tag
         store.commit()
 
-    set controller, 'tagsInput', input 
+    post.set 'tagsInput', input 

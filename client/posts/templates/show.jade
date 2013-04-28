@@ -1,5 +1,5 @@
 
-| {{#with content}}
+| {{#with controllers.post}}
 
 .col-2-12
   .back
@@ -13,10 +13,10 @@
     
     .actions
 
-      | {{#if controller.user.is_admin}}
+      | {{#if controller.user.isSuperUser}}
 
       | {{#linkTo "post.edit" this}}
-      i.icon-pencil
+      i.icon-edit
       | {{/linkTo}}
 
       <a {{action removePost this}} href="javascript:">
@@ -46,7 +46,6 @@
             a(href="#") #\{{name}}
           | {{/each}}
 
-    | {{debugger controller}}
     .comments
 
       div

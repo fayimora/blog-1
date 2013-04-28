@@ -1,0 +1,10 @@
+{
+  "name": "comments",
+  "dependencies": {
+  },
+  "coffee": [
+    "index",
+    "models"
+  ],
+  "scripts": []
+}

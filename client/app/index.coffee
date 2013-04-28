@@ -7,10 +7,11 @@ window.App = Em.Application.create
 
 require './store'
 require './models'
-require './controllers'
 require './templates'
 require './views'
 require './router'
 
-require 'post'
-require 'user'
+require 'users'
+require 'posts'
+require 'tags'
+require 'comments'

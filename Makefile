@@ -1,11 +1,11 @@
 start: node_modules components
-	@./node_modules/node_hooks/node_modules/.bin/coffee server
+	@supervisor -q -w server/ --extensions 'coffee|jade' server/
 
 node_modules:
 	@npm install
 
 components:
-	@./node_modules/node_hooks/node_modules/.bin/component install
+	@./node_modules/node_hooks/node_modules/.bin/component install --dev
 
 clean:
 	@rm -rf build

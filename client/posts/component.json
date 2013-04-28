@@ -1,0 +1,19 @@
+{
+  "name": "posts",
+  "dependencies": {
+  },
+  "jade": [
+    "templates/list",
+    "templates/show",
+    "templates/form"
+  ],
+  "coffee": [
+    "index",
+    "views",
+    "routes",
+    "models",
+    "templates",
+    "controllers"
+  ],
+  "scripts": []
+}
