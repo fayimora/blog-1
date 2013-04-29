@@ -5,7 +5,7 @@ App.PostsRoute = Em.Route.extend
 
   events:
 
-    cancelPostEdit: (post) ->
+    cancelPostUpdate: (post) ->
       post.transaction.rollback()
       @transitionTo 'posts.index'
 
@@ -22,22 +22,6 @@ App.PostsRoute = Em.Route.extend
       post.validate()
       if post.get '_isValid'
         store.commit()
-
-        # func to be called when creating/updating post
-        saveTags = ->
-          input = post.get 'tagsInput'
-          tags = post.get 'tags'
-          names = input.values()
-
-          tagsNames = tags.map (tag)->
-            tag.get 'name'
-
-          names = names.removeObjects tagsNames
-          names.forEach (name)->
-            tag = App.Tag.createRecord
-              name: name
-              post: post
-          store.commit()
 
         # save tags
         if post.get 'id'
@@ -75,6 +59,44 @@ App.PostsRoute = Em.Route.extend
       store.commit()
       #@transitionTo 'posts.index'
 
+    saveTags: ->
+      input = post.get 'tagsInput'
+      tags = post.get 'tags'
+      names = input.values()
+
+      tagsNames = tags.map (tag)->
+        tag.get 'name'
+
+      names = names.removeObjects tagsNames
+      names.forEach (name)->
+        tag = App.Tag.createRecord
+          name: name
+          post: post
+      store.commit()
+
+
+    saveTag: (name)->
+      input = post.get 'tagsInput'
+      tags = post.get 'tags'
+      names = input.values()
+
+      tagsNames = tags.map (tag)->
+        tag.get 'name'
+
+      names = names.removeObjects tagsNames
+      names.forEach (name)->
+        tag = App.Tag.createRecord
+          name: name
+          post: post
+      store.commit()
+
+    removeTag: (name)->
+      tag = tags.filterProperty 'name', name
+      if tag.get 'id'
+        store = tag.get 'store'
+        store.deleteRecord tag
+        store.commit()
+
 App.PostsIndexRoute = Em.Route.extend()
 
 App.PostsNewRoute = Em.Route.extend
@@ -107,22 +129,21 @@ App.PostRoute = Em.Route.extend
       @transitionTo 'post.index'
 
     updateComment: (comment) ->
-      #comment.validate()
-      #if comment.get '_isValid'
-      comment.transaction.commit()
-      comment.set 'editing', false
+      comment.validate()
+      if comment.get '_isValid'
+        comment.transaction.commit()
+        comment.set 'editing', false
+
+    removeComment: (comment)->
+      store = comment.get 'store'
+      store.deleteRecord comment
+      store.commit()
 
     cancelCommentUpdate: (comment) ->
       comment.transaction.rollback()
       comment.set 'editing', false
 
-    editComment: (comment)->
+    startCommentUpdate: (comment)->
       comment.set 'editing', true
-      
-    removeComment: (comment)->
-      console.log comment
-      store = comment.get 'store'
-      store.deleteRecord comment
-      store.commit()
 
 App.PostIndexRoute = Em.Route.extend()

@@ -1,5 +1,5 @@
 
-| {{#with controllers.post}}
+| {{#with controllers.post }}
 
 .col-2-12
   .back
@@ -34,7 +34,7 @@
       | {{date}}
 
     .content
-      | {{{unbound content}}}
+      | {{{controller.controllers.post.content.content}}}
 
 
     .footer
@@ -83,6 +83,7 @@
           .editing
             .col-11-12
               | {{{content}}}
+              | - {{user.name}}
             .col-1-12
               <a {{action editComment this}} href="javascript:">
               i.icon-pencil
@@ -96,7 +97,7 @@
           | {{else}}
           
           .showing
-            | {{#if controller.user}}
+            | {{#if controller.user }}
             div
               | {{view App.EditorView class="edit" valueBinding="content"}}
 

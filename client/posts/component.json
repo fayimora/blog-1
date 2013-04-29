@@ -5,7 +5,8 @@
   "jade": [
     "templates/list",
     "templates/show",
-    "templates/form"
+    "templates/new",
+    "templates/edit"
   ],
   "coffee": [
     "index",
