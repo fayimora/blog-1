@@ -1,1 +1,1 @@
-DS.Model.reopen require 'ember-validate'
+DS.Model.reopen require('ember-validate'), require('ember-onhas') 

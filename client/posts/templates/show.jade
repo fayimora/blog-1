@@ -85,8 +85,8 @@
               | {{{content}}}
               | - {{user.name}}
             .col-1-12
-              <a {{action editComment this}} href="javascript:">
-              i.icon-pencil
+              <a {{action startCommentUpdate this}} href="javascript:">
+              i.icon-edit
               </a>
 
               <a {{action removeComment this}} href="javascript:">
@@ -97,9 +97,9 @@
           | {{else}}
           
           .showing
-            | {{#if controller.user }}
+            | {{#if controller.user.id }}
             div
-              | {{view App.EditorView class="edit" valueBinding="content"}}
+              | {{view App.EditorView class="edit" for="content"}}
 
             div
               .col-8-12.empty

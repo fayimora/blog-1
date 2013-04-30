@@ -6,6 +6,7 @@
     "kelonye/ember-dots": "*",
     "kelonye/ember-data": "*",
     "kelonye/ember-user": "*",
+    "kelonye/ember-onhas": "*",
     "kelonye/ember-ckedit": "*",
     "component/simple-grid": "*",
     "kelonye/ember-validate": "*",

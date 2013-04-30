@@ -11,8 +11,6 @@ App.PostsRoute = Em.Route.extend
 
     savePost: (post) ->
 
-      that = @
-      controller = @controllerFor 'posts'
       store = post.get 'store'
 
       # update content
@@ -23,79 +21,28 @@ App.PostsRoute = Em.Route.extend
       if post.get '_isValid'
         store.commit()
 
-        # save tags
-        if post.get 'id'
-          # sync
-          saveTags()
+        post.onhas 'id', ->
+          input = post.get 'tagsInput'
+          tags = post.get 'tags'
+          names = input.values()
 
-        else
-          # async
-          post.addObserver 'id', ->
-            id = post.get 'id'
-            if id
-              post.removeObserver 'id'
-              saveTags()
+          tagsNames = tags.map (tag)->
+            tag.get 'name'
 
-        that.transitionTo 'posts.index'
+          names = names.removeObjects tagsNames
+          names.forEach (name)->
+            tag = App.Tag.createRecord
+              name: name
+              post: post
+          store.commit()
+
+        @transitionTo 'posts.index'
 
     removePost: (post)->
-
-      controller = @controllerFor 'posts'
-      store = controller.get 'store'
-  
-      # remove comments
-      comments = post.get 'comments'
-      for comment in comments
-        comment.deleteRecord()
-
-      # remove tags
-      tags = post.get 'tags'
-      for tag in tags
-        tag.deleteRecord()
-
-      #remove post
-      post.deleteRecord()
-      #
+      store = post.get 'store'
+      store.deleteRecord post
       store.commit()
-      #@transitionTo 'posts.index'
-
-    saveTags: ->
-      input = post.get 'tagsInput'
-      tags = post.get 'tags'
-      names = input.values()
-
-      tagsNames = tags.map (tag)->
-        tag.get 'name'
-
-      names = names.removeObjects tagsNames
-      names.forEach (name)->
-        tag = App.Tag.createRecord
-          name: name
-          post: post
-      store.commit()
-
-
-    saveTag: (name)->
-      input = post.get 'tagsInput'
-      tags = post.get 'tags'
-      names = input.values()
-
-      tagsNames = tags.map (tag)->
-        tag.get 'name'
-
-      names = names.removeObjects tagsNames
-      names.forEach (name)->
-        tag = App.Tag.createRecord
-          name: name
-          post: post
-      store.commit()
-
-    removeTag: (name)->
-      tag = tags.filterProperty 'name', name
-      if tag.get 'id'
-        store = tag.get 'store'
-        store.deleteRecord tag
-        store.commit()
+      @transitionTo 'posts.index'
 
 App.PostsIndexRoute = Em.Route.extend()
 
@@ -112,7 +59,6 @@ App.PostRoute = Em.Route.extend
 
       controller = @controllerFor 'post'
       content = controller.get 'comment'
-      user = controller.get 'user'
 
       # update content
       editor = post.get 'editor'
@@ -121,14 +67,23 @@ App.PostRoute = Em.Route.extend
       comment = App.Comment.createRecord
         content: content
         post: post
-        user: user
-      #comment.validate()
-      #if comment.get '_isValid'
-      comment.transaction.commit()
 
-      @transitionTo 'post.index'
+      comment.validate()
+      if comment.get '_isValid'
+        editor.setData ''
+        comment.transaction.commit()
+
+    cancelCommentUpdate: (comment) ->
+      comment.transaction.rollback()
+      comment.set 'editing', false
+
+    startCommentUpdate: (comment)->
+      comment.set 'editing', true
 
     updateComment: (comment) ->
+      editor = comment.get 'editor'
+      content = editor.getData()
+      comment.set 'content', content
       comment.validate()
       if comment.get '_isValid'
         comment.transaction.commit()
@@ -138,12 +93,5 @@ App.PostRoute = Em.Route.extend
       store = comment.get 'store'
       store.deleteRecord comment
       store.commit()
-
-    cancelCommentUpdate: (comment) ->
-      comment.transaction.rollback()
-      comment.set 'editing', false
-
-    startCommentUpdate: (comment)->
-      comment.set 'editing', true
 
 App.PostIndexRoute = Em.Route.extend()
