@@ -11,6 +11,14 @@ schema = new mongoose.Schema
   name: String
   comment_ids: Array
   is_super_user: Boolean
+schema.methods.__isCreatable__ = (req, cb)->
+  cb null, 403
+schema.methods.__isReadable__ = (req, cb)->
+  cb null, true
+schema.methods.__isUpdatable__ = (req, cb)->
+  cb null, 403
+schema.methods.__isRemovable__ = (req, cb)->
+  cb null, 403
 exports.User = mongo.model 'User', schema
 
 

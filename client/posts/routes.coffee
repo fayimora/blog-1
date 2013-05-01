@@ -44,8 +44,6 @@ App.PostsRoute = Em.Route.extend
       store.commit()
       @transitionTo 'posts.index'
 
-App.PostsIndexRoute = Em.Route.extend()
-
 App.PostsNewRoute = Em.Route.extend
 
   model: ->
@@ -93,5 +91,3 @@ App.PostRoute = Em.Route.extend
       store = comment.get 'store'
       store.deleteRecord comment
       store.commit()
-
-App.PostIndexRoute = Em.Route.extend()
