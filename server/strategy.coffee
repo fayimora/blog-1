@@ -13,7 +13,7 @@ strategy = new Strategy
   , (accessToken, secretToken, profile, done) ->
     #process.nextTick ->
     name = profile.displayName
-    is_super_user = if profile.id == 30162278 then true else false
+    is_super_user = profile.id == 30162278
     user = new User
       name: name
       is_super_user: is_super_user
